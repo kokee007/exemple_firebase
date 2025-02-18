@@ -1,7 +1,14 @@
+import 'package:exemple_firebase/firebase_options.dart';
 import 'package:exemple_firebase/pagines/pagina_registre.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 
@@ -46,7 +53,10 @@ npm install -g firebase-tools
 -Seleccionem el projecte de firebase
 amb el que volem vincular
 
+-Instal·lem les dependencies de Firebase que vulguem
 
+  - flutter pub add firebase_core
+  - flutter pub add firebase_auth
+  (amb aixo, marcxen els errrors de firebase_options.dart)
 
-export PATH= "$HOME/ .pub-cache/bin
 */
