@@ -6,18 +6,34 @@ import 'package:flutter/material.dart';
 class PaginaRegistre extends StatelessWidget {
   const PaginaRegistre({super.key});
 
-void ferRegistre(){
+  void ferRegistre(
+      BuildContext context, String email, String password, String confPassword) {
+    if (password.isEmpty || email.isEmpty) {
+      return;
+    }
 
-  final ServeiAuth serveiAuth = ServeiAuth();
+    if (password != confPassword) {
+      //Gestio del cas
+      return;
+    }
+    try {
+      ServeiAuth().registreAmbEmailIpassword(email, password);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Error"),
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
-  serveiAuth.registreAmbEmailIpassword("email1@email1.com", "123456");
-}
   @override
   Widget build(BuildContext context) {
     final TextEditingController tecEmail = TextEditingController();
     final TextEditingController tecPassword = TextEditingController();
     final TextEditingController tecConfPass = TextEditingController();
-
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 2500, 183, 159),
@@ -33,9 +49,9 @@ void ferRegistre(){
                   size: 120,
                   color: Color.fromARGB(255, 255, 240, 218),
                 ),
-          
+
                 SizedBox(height: 25),
-          
+
                 //Frase
                 Text(
                   "Crea un compte nou",
@@ -45,9 +61,9 @@ void ferRegistre(){
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-          
+
                 SizedBox(height: 25),
-          
+
                 //Text divisori
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -59,16 +75,15 @@ void ferRegistre(){
                           color: Color.fromARGB(255, 255, 240, 218),
                         ),
                       ),
-                  
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
                           "Registra't",
-                          style: TextStyle(color: Color.fromARGB(255, 355, 240, 218)),
-                          ),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 355, 240, 218)),
+                        ),
                       ),
-                  
-                        Expanded(
+                      Expanded(
                         child: Divider(
                           thickness: 1,
                           color: Color.fromARGB(255, 255, 240, 218),
@@ -77,34 +92,40 @@ void ferRegistre(){
                     ],
                   ),
                 ),
-          
+
                 //TextField Email
-                TextfieldAuth(controller: tecEmail,
-                obscureText: false,
-                hintText: "Escriu el teu email...",
+                TextfieldAuth(
+                  controller: tecEmail,
+                  obscureText: false,
+                  hintText: "Escriu el teu email...",
                 ),
-          
+
                 //TextField Password
-                TextfieldAuth(controller: tecPassword,
-                obscureText: true,
-                hintText: "Escriu la teva contrasenya...",
+                TextfieldAuth(
+                  controller: tecPassword,
+                  obscureText: true,
+                  hintText: "Escriu la teva contrasenya...",
                 ),
-          
+
                 //TextField Confirmar password
-                TextfieldAuth(controller: tecConfPass,
-                obscureText: true,
-                hintText: "Reescriu la contrasenya...",
+                TextfieldAuth(
+                  controller: tecConfPass,
+                  obscureText: true,
+                  hintText: "Reescriu la contrasenya...",
                 ),
-          
-                SizedBox(height: 10,),
-          
-          
+
+                SizedBox(
+                  height: 10,
+                ),
+
                 //no estas registrat?
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Ja ets membre?"),
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                     GestureDetector(
                       child: Text(
                         "Fes login",
@@ -112,21 +133,28 @@ void ferRegistre(){
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 40, 71, 97),
                         ),
-                        ),
+                      ),
                     ),
                   ],
                 ),
 
-                SizedBox( height:10 ,),
-                
+                SizedBox(
+                  height: 10,
+                ),
+
                 //Botó registra't
                 BotoAuth(
                   text: "REGISTRA'T",
-                  onTap: ferRegistre,
+                  onTap: () => ferRegistre(
+                    context,
+                    tecEmail.text,
+                    tecPassword.text,
+                    tecConfPass.text,
+                  ),
                 ),
                 BotoAuth(
                   text: "Logout",
-                  onTap: (){},
+                  onTap: () {},
                 ),
               ],
             ),
