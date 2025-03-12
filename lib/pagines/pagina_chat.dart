@@ -20,6 +20,8 @@ class _PaginaChatState extends State<PaginaChat> {
   final TextEditingController tecMissatge = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
+  FocusNode teclatMobil = FocusNode();
+
   @override
   void initState() {
     super.initState();
