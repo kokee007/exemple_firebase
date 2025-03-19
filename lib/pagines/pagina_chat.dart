@@ -26,6 +26,12 @@ class _PaginaChatState extends State<PaginaChat> {
   void initState() {
     super.initState();
 
+    teclatMobil.addListener(() {
+      Future.delayed(Duration(milliseconds: 500), () {
+        ferScrollCapAvall();
+      });
+    }); 
+
   Future.delayed(Duration(milliseconds: 500), () {
       ferScrollCapAvall();
     });

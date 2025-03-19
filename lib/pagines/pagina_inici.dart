@@ -2,6 +2,7 @@ import 'package:exemple_firebase/Components/item_usuari.dart';
 import 'package:exemple_firebase/auth/servei_auth.dart';
 import 'package:exemple_firebase/chat/servei_chat.dart';
 import 'package:exemple_firebase/pagines/pagina_chat.dart';
+import 'package:exemple_firebase/pagines/editar_dades_usuari.dart'; // Added import for EditarDadesUsuari
 import 'package:flutter/material.dart';
 
 class PaginaInici extends StatelessWidget {
@@ -18,6 +19,14 @@ class PaginaInici extends StatelessWidget {
         backgroundColor: Colors.deepPurple[200],
         title: Text(ServeiAuth().getUsuarisActual()!.email.toString()),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EditarDadesUsuari(),
+              ),
+              );
+            },
+            icon: Icon(Icons.edit),
+          ),
           IconButton(
             onPressed: () {
               ServeiAuth().ferLogout();

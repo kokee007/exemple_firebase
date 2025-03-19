@@ -6,11 +6,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  if (Firebase.apps.isEmpty) {
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print("Error iniciant Firebase");
+  }
+} else {
+  print("Error, Firebase ja esta inicialitzat.");
+}
+
   runApp(const MainApp());
 }
 
